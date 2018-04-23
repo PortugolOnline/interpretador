@@ -256,8 +256,6 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNull(saidaAtributosDaDeclaracao);
 		// TODO Refatoração - AnalisadorSemantico.analisar() throws ErroSemantico, seria
 		// o caso de refatorar o método AnalisadorSemantico.lancarErroSemantico()
-		// TODO Defeito - mensagem de erro ambígua na linha 58 da classe
-		// AnalisadorDeDeclaracoes
 		assertTrue(analisadorSemantico.haErroSemantico());
 		// TODO Refatoração - Não é possível testar linha e coluna do erro semântico
 

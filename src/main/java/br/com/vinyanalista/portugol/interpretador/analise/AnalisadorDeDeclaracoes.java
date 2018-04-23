@@ -54,14 +54,13 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
                     		capacidade = (Integer) atributosDoValor.obter(Atributo.VALOR);
                 		}
                 	}
-                	if (capacidade == 0) {
-						analisadorSemantico.lancarErroSemantico(
-										expressao, linha, coluna,
-										(dimensoes > 1 ? "A capacidade de uma dimensão de uma matriz"
-												: "A capacidade de um vetor")
-												+ " deve ser indicada por um número inteiro");
-                        return;
-                	}
+					if (capacidade <= 0) {
+						analisadorSemantico.lancarErroSemantico(expressao, linha, coluna,
+								(dimensoes > 1 ? "A capacidade de uma dimensão de uma matriz"
+										: "A capacidade de um vetor")
+										+ " deve ser indicada por um número inteiro positivo");
+						return;
+					}
                 	capacidades[d] = capacidade;
                 }
                 tipoDaVariavel = new TipoVetorOuMatriz(tipo, capacidades);
