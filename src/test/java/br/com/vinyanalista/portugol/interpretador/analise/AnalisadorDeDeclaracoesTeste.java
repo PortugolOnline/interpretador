@@ -44,7 +44,7 @@ public class AnalisadorDeDeclaracoesTeste {
 				entradaLinha, entradaVariavelXColuna);
 		ASimplesVariavel entradaVariavelX = new ASimplesVariavel(entradaVariavelXIdentificador);
 
-		List<PVariavel> entradaListaDeVariaveis = new ArrayList<>();
+		List<PVariavel> entradaListaDeVariaveis = new ArrayList<PVariavel>();
 		entradaListaDeVariaveis.add(entradaVariavelX);
 
 		PTipo entradaTipo = new ANumericoTipo();
@@ -103,7 +103,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		String saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
 		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] NUMERICO", saidaStringDaDeclaracao);
-		
+
 		// TODO Dúvida - Deveria testar outros atributos? (ver enum Atributo)
 
 		// TODO Dúvida - Não há um método para remover símbolos da tabela de símbolos
@@ -177,7 +177,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		int entradaVetorLetrasColuna = 2;
 		TIdentificador entradaVetorLetrasIdentificador = new TIdentificador(entradaVetorLetrasIdentificadorComoString,
 				entradaLinha, entradaVetorLetrasColuna);
-		List<PExpressao> entradaListaDeExpressoes = new ArrayList<>();
+		List<PExpressao> entradaListaDeExpressoes = new ArrayList<PExpressao>();
 		entradaListaDeExpressoes.add(new AValorExpressao(new AInteiroValor(new TNumeroInteiro("1", entradaLinha, 9))));
 		AVetorOuMatrizVariavel entradaVetorLetras = new AVetorOuMatrizVariavel(entradaVetorLetrasIdentificador,
 				entradaListaDeExpressoes);
@@ -432,7 +432,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		PVariavel entradaCampoSaldo = new ASimplesVariavel(
 				new TIdentificador(entradaCampoSaldoIdentificador, entradaLinha, entradaCampoSaldoColuna));
 
-		List<PVariavel> auxiliarListaDeCampos = new ArrayList<>();
+		List<PVariavel> auxiliarListaDeCampos = new ArrayList<PVariavel>();
 		auxiliarListaDeCampos.add(entradaCampoNum);
 		auxiliarListaDeCampos.add(entradaCampoSaldo);
 
@@ -448,7 +448,7 @@ public class AnalisadorDeDeclaracoesTeste {
 
 		PDeclaracao entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeCampos, new ALiteralTipo());
 
-		List<PDeclaracao> entradaListaDeDeclaracoes = new ArrayList<>();
+		List<PDeclaracao> entradaListaDeDeclaracoes = new ArrayList<PDeclaracao>();
 		entradaListaDeDeclaracoes.add(entradaDeclaracaoNumerico);
 		entradaListaDeDeclaracoes.add(entradaDeclaracaoLiteral);
 
@@ -460,7 +460,7 @@ public class AnalisadorDeDeclaracoesTeste {
 				entradaVariavelContaIdentificadorComoString, entradaLinha, entradaVariavelContaColuna);
 		ASimplesVariavel entradaVariavelConta = new ASimplesVariavel(entradaVariavelContaIdentificador);
 
-		entradaListaDeVariaveis = new ArrayList<>();
+		entradaListaDeVariaveis = new ArrayList<PVariavel>();
 		entradaListaDeVariaveis.add(entradaVariavelConta);
 
 		entradaDeclaracao = new ADeclaracao(entradaListaDeVariaveis, entradaTipo);
@@ -635,7 +635,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		int entradaLinha = 6, entradaColuna = 2;
 		TIdentificador entradaIdentificador = new TIdentificador(entradaIdentificadorComoString, entradaLinha,
 				entradaColuna);
-		List<PExpressao> entradaListaDeExpressoes = new ArrayList<>();
+		List<PExpressao> entradaListaDeExpressoes = new ArrayList<PExpressao>();
 		entradaListaDeExpressoes.add(new AValorExpressao(new AInteiroValor(new TNumeroInteiro("9", entradaLinha, 6))));
 		AVetorOuMatrizVariavel entradaVetorOuMatriz = new AVetorOuMatrizVariavel(entradaIdentificador,
 				entradaListaDeExpressoes);
@@ -875,12 +875,12 @@ public class AnalisadorDeDeclaracoesTeste {
 		PVariavel entradaCampoNum = new ASimplesVariavel(
 				new TIdentificador(entradaCampoNumIdentificador, entradaLinha, entradaCampoNumColuna));
 
-		List<PVariavel> auxiliarListaDeCampos = new ArrayList<>();
+		List<PVariavel> auxiliarListaDeCampos = new ArrayList<PVariavel>();
 		auxiliarListaDeCampos.add(entradaCampoNum);
 
 		PDeclaracao entradaDeclaracaoNumerico = new ADeclaracao(auxiliarListaDeCampos, new ANumericoTipo());
 
-		List<PDeclaracao> entradaListaDeDeclaracoes = new ArrayList<>();
+		List<PDeclaracao> entradaListaDeDeclaracoes = new ArrayList<PDeclaracao>();
 		entradaListaDeDeclaracoes.add(entradaDeclaracaoNumerico);
 
 		ARegistroTipo entradaTipoRegistro = new ARegistroTipo(entradaListaDeDeclaracoes);
@@ -1092,7 +1092,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		TIdentificador entradaIdentificador = new TIdentificador(entradaSubRotinaIdentificadorComoString, entradaLinha,
 				entradaSubRotinaColuna);
 
-		List<PDeclaracao> entradaParametros = new ArrayList<>();
+		List<PDeclaracao> entradaParametros = new ArrayList<PDeclaracao>();
 
 		String entradaSubRotinaIdentificadorFimComoString = entradaSubRotinaIdentificadorComoString;
 		int entradaIdentificadorFimLinha = entradaLinha + 1, entradaIdentificadorFimColuna = 16;
@@ -1171,7 +1171,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		PVariavel entradaParametroX = new ASimplesVariavel(
 				new TIdentificador(entradaParametroXIdentificador, entradaLinha, entradaParametroXColuna));
 
-		List<PVariavel> auxiliarListaDeVariaveis = new ArrayList<>();
+		List<PVariavel> auxiliarListaDeVariaveis = new ArrayList<PVariavel>();
 		auxiliarListaDeVariaveis.add(entradaParametroX);
 
 		PDeclaracao entradaDeclaracaoNumerico = new ADeclaracao(auxiliarListaDeVariaveis, new ANumericoTipo());
