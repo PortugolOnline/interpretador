@@ -35,6 +35,22 @@ public class AnalisadorDeDeclaracoesTeste {
 		inicializar();
 	}
 
+	private void verificarAtributos(TabelaDeAtributos tabelaDeAtributos, Atributo[] atributosEsperados) {
+		List<Atributo> atributosEsperadosComoLista = Arrays.asList(atributosEsperados);
+
+		// Verifica se atributos esperados estão presentes
+		for (Atributo atributoEsperado : atributosEsperados) {
+			assertNotNull(tabelaDeAtributos.obter(atributoEsperado));
+		}
+
+		// Verifica se atributos não esperados estão ausentes
+		for (Atributo atributoPossivel : Atributo.values()) {
+			if (!atributosEsperadosComoLista.contains(atributoPossivel)) {
+				assertNull(tabelaDeAtributos.obter(atributoPossivel));
+			}
+		}
+	}
+
 	@Test
 	public void outADeclaracao() {
 		// Entrada: declare x numerico
@@ -88,6 +104,9 @@ public class AnalisadorDeDeclaracoesTeste {
 		saidaAtributosDaDeclaracao = analisadorSemantico.obterAtributos(entradaDeclaracao);
 		assertNotNull(saidaAtributosDaDeclaracao);
 
+		Atributo[] atributosEsperadosDaDeclaracao = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDaDeclaracao, atributosEsperadosDaDeclaracao);
+
 		TabelaDeAtributos saidaAtributosDaVariavelX = analisadorSemantico.obterAtributos(entradaVariavelX);
 
 		Tipo saidaTipoDaVariavelX = (Tipo) saidaAtributosDaVariavelX.obter(Atributo.TIPO);
@@ -97,14 +116,10 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNotNull(analisadorSemantico.getTabelaDeSimbolos().obter(entradaVariavelXSimbolo));
 
 		Tipo saidaTipoDaDeclaracao = (Tipo) saidaAtributosDaDeclaracao.obter(Atributo.TIPO);
-		assertNotNull(saidaTipoDaDeclaracao);
 		assertEquals(entradaTipoNumerico, saidaTipoDaDeclaracao);
 
 		String saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
-		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] NUMERICO", saidaStringDaDeclaracao);
-
-		// TODO Dúvida - Deveria testar outros atributos? (ver enum Atributo)
 
 		// TODO Dúvida - Não há um método para remover símbolos da tabela de símbolos
 		// (seria o caso de criar?)
@@ -141,6 +156,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.outADeclaracao(entradaDeclaracao);
 		saidaAtributosDaDeclaracao = analisadorSemantico.obterAtributos(entradaDeclaracao);
 		assertNotNull(saidaAtributosDaDeclaracao);
+		verificarAtributos(saidaAtributosDaDeclaracao, atributosEsperadosDaDeclaracao);
 
 		saidaAtributosDaVariavelX = analisadorSemantico.obterAtributos(entradaVariavelX);
 
@@ -159,11 +175,9 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNotNull(analisadorSemantico.getTabelaDeSimbolos().obter(entradaVariavelYSimbolo));
 
 		saidaTipoDaDeclaracao = (Tipo) saidaAtributosDaDeclaracao.obter(Atributo.TIPO);
-		assertNotNull(saidaTipoDaDeclaracao);
 		assertEquals(entradaTipoNumerico, saidaTipoDaDeclaracao);
 
 		saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
-		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] NUMERICO", saidaStringDaDeclaracao);
 
 		inicializar();
@@ -207,6 +221,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.outADeclaracao(entradaDeclaracao);
 		saidaAtributosDaDeclaracao = analisadorSemantico.obterAtributos(entradaDeclaracao);
 		assertNotNull(saidaAtributosDaDeclaracao);
+		verificarAtributos(saidaAtributosDaDeclaracao, atributosEsperadosDaDeclaracao);
 
 		TabelaDeAtributos saidaAtributosDoVetorLetras = analisadorSemantico.obterAtributos(entradaVetorLetras);
 
@@ -223,11 +238,9 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNotNull(analisadorSemantico.getTabelaDeSimbolos().obter(entradaVetorLetrasSimbolo));
 
 		saidaTipoDaDeclaracao = (Tipo) saidaAtributosDaDeclaracao.obter(Atributo.TIPO);
-		assertNotNull(saidaTipoDaDeclaracao);
 		assertEquals(entradaTipoLiteral, saidaTipoDaDeclaracao);
 
 		saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
-		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] LITERAL", saidaStringDaDeclaracao);
 
 		entradaAtributosDoVetorLetras.atributos().remove(Atributo.TIPO);
@@ -392,6 +405,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.outADeclaracao(entradaDeclaracao);
 		saidaAtributosDaDeclaracao = analisadorSemantico.obterAtributos(entradaDeclaracao);
 		assertNotNull(saidaAtributosDaDeclaracao);
+		verificarAtributos(saidaAtributosDaDeclaracao, atributosEsperadosDaDeclaracao);
 
 		TabelaDeAtributos saidaAtributosDaMatriz = analisadorSemantico.obterAtributos(entradaMatriz);
 
@@ -408,11 +422,9 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNotNull(analisadorSemantico.getTabelaDeSimbolos().obter(entradaMatrizSimbolo));
 
 		saidaTipoDaDeclaracao = (Tipo) saidaAtributosDaDeclaracao.obter(Atributo.TIPO);
-		assertNotNull(saidaTipoDaDeclaracao);
 		assertEquals(entradaTipoNumerico, saidaTipoDaDeclaracao);
 
 		saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
-		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] NUMERICO", saidaStringDaDeclaracao);
 
 		inicializar();
@@ -487,6 +499,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.outADeclaracao(entradaDeclaracao);
 		saidaAtributosDaDeclaracao = analisadorSemantico.obterAtributos(entradaDeclaracao);
 		assertNotNull(saidaAtributosDaDeclaracao);
+		verificarAtributos(saidaAtributosDaDeclaracao, atributosEsperadosDaDeclaracao);
 
 		TabelaDeAtributos saidaAtributosDaVariavelConta = analisadorSemantico.obterAtributos(entradaVariavelConta);
 
@@ -497,11 +510,9 @@ public class AnalisadorDeDeclaracoesTeste {
 		assertNotNull(analisadorSemantico.getTabelaDeSimbolos().obter(entradaVariavelContaSimbolo));
 
 		saidaTipoDaDeclaracao = (Tipo) saidaAtributosDaDeclaracao.obter(Atributo.TIPO);
-		assertNotNull(saidaTipoDaDeclaracao);
 		assertEquals(entradaTipoRegistro, saidaTipoDaDeclaracao);
 
 		saidaStringDaDeclaracao = (String) saidaAtributosDaDeclaracao.obter(Atributo.STRING);
-		assertNotNull(saidaStringDaDeclaracao);
 		assertEquals("[...] REGISTRO([...])", saidaStringDaDeclaracao);
 
 		inicializar();
@@ -578,7 +589,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		ASimplesVariavel entradaVariavel = new ASimplesVariavel(entradaIdentificador);
 
 		// ********************************************************************************
-		// Teste com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -589,35 +600,34 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste com entrada válida
+		// Teste 2 - com entrada válida
 		// ********************************************************************************
 
 		analisadorDeDeclaracoes.outASimplesVariavel(entradaVariavel);
 		saidaAtributosDaVariavel = analisadorSemantico.obterAtributos(entradaVariavel);
 		assertNotNull(saidaAtributosDaVariavel);
 
+		Atributo[] atributosEsperadosDaVariavel = new Atributo[] { Atributo.SIMBOLO, Atributo.ID, Atributo.LINHA,
+				Atributo.COLUNA, Atributo.STRING };
+		verificarAtributos(saidaAtributosDaVariavel, atributosEsperadosDaVariavel);
+
 		String saidaIdentificador = (String) saidaAtributosDaVariavel.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
 		assertEquals(entradaIdentificadorComoString.toUpperCase(), saidaIdentificador);
 
 		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDaVariavel.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
 		assertEquals(Simbolo.obter(entradaIdentificadorComoString.toUpperCase()), saidaSimbolo);
 
 		Integer saidaLinha = (Integer) saidaAtributosDaVariavel.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
 		assertEquals(entradaLinha, (int) saidaLinha);
 
 		Integer saidaColuna = (Integer) saidaAtributosDaVariavel.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
 		assertEquals(entradaColuna, (int) saidaColuna);
 
 		String saidaString = (String) saidaAtributosDaVariavel.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(entradaIdentificadorComoString.toUpperCase(), saidaString);
 
 		// ********************************************************************************
-		// Teste com entrada nula
+		// Teste 3 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -641,7 +651,7 @@ public class AnalisadorDeDeclaracoesTeste {
 				entradaListaDeExpressoes);
 
 		// ********************************************************************************
-		// Teste com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -652,34 +662,31 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste com entrada válida
+		// Teste 2 - com entrada válida
 		// ********************************************************************************
 
 		analisadorDeDeclaracoes.outAVetorOuMatrizVariavel(entradaVetorOuMatriz);
 		saidaAtributosDoVetorOuMatriz = analisadorSemantico.obterAtributos(entradaVetorOuMatriz);
 		assertNotNull(saidaAtributosDoVetorOuMatriz);
 
+		Atributo[] atributosEsperadosDoVetorOuMatriz = new Atributo[] { Atributo.SIMBOLO, Atributo.ID, Atributo.LINHA,
+				Atributo.COLUNA };
+		verificarAtributos(saidaAtributosDoVetorOuMatriz, atributosEsperadosDoVetorOuMatriz);
+
 		String saidaIdentificador = (String) saidaAtributosDoVetorOuMatriz.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
 		assertEquals(entradaIdentificadorComoString.toUpperCase(), saidaIdentificador);
 
 		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDoVetorOuMatriz.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
 		assertEquals(Simbolo.obter(entradaIdentificadorComoString.toUpperCase()), saidaSimbolo);
 
 		Integer saidaLinha = (Integer) saidaAtributosDoVetorOuMatriz.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
 		assertEquals(entradaLinha, (int) saidaLinha);
 
 		Integer saidaColuna = (Integer) saidaAtributosDoVetorOuMatriz.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
 		assertEquals(entradaColuna, (int) saidaColuna);
 
-		String saidaString = (String) saidaAtributosDoVetorOuMatriz.obter(Atributo.STRING);
-		assertNull(saidaString);
-
 		// ********************************************************************************
-		// Teste com entrada nula
+		// Teste 3 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -696,7 +703,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		ANumericoTipo entradaTipoNumerico = new ANumericoTipo();
 
 		// ********************************************************************************
-		// Teste com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -707,37 +714,26 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste com entrada válida
+		// Teste 2 - com entrada válida
 		// ********************************************************************************
 
 		analisadorDeDeclaracoes.outANumericoTipo(entradaTipoNumerico);
 		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoNumerico);
 		assertNotNull(saidaAtributosDoTipo);
 
-		String saidaIdentificador = (String) saidaAtributosDoTipo.obter(Atributo.ID);
-		assertNull(saidaIdentificador);
-
-		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDoTipo.obter(Atributo.SIMBOLO);
-		assertNull(saidaSimbolo);
-
-		Integer saidaLinha = (Integer) saidaAtributosDoTipo.obter(Atributo.LINHA);
-		assertNull(saidaLinha);
-
-		Integer saidaColuna = (Integer) saidaAtributosDoTipo.obter(Atributo.COLUNA);
-		assertNull(saidaColuna);
+		Atributo[] atributosEsperadosDoTipo = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDoTipo, atributosEsperadosDoTipo);
 
 		Tipo esperadoTipo = new Tipo(TipoPrimitivo.NUMERICO);
 
 		Tipo saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		String saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoTipo.toString(), saidaString);
 
 		// ********************************************************************************
-		// Teste com entrada nula
+		// Teste 3 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -754,7 +750,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		ALiteralTipo entradaTipoLiteral = new ALiteralTipo();
 
 		// ********************************************************************************
-		// Teste com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -765,37 +761,26 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste com entrada válida
+		// Teste 2 - com entrada válida
 		// ********************************************************************************
 
 		analisadorDeDeclaracoes.outALiteralTipo(entradaTipoLiteral);
 		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoLiteral);
 		assertNotNull(saidaAtributosDoTipo);
 
-		String saidaIdentificador = (String) saidaAtributosDoTipo.obter(Atributo.ID);
-		assertNull(saidaIdentificador);
-
-		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDoTipo.obter(Atributo.SIMBOLO);
-		assertNull(saidaSimbolo);
-
-		Integer saidaLinha = (Integer) saidaAtributosDoTipo.obter(Atributo.LINHA);
-		assertNull(saidaLinha);
-
-		Integer saidaColuna = (Integer) saidaAtributosDoTipo.obter(Atributo.COLUNA);
-		assertNull(saidaColuna);
+		Atributo[] atributosEsperadosDoTipo = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDoTipo, atributosEsperadosDoTipo);
 
 		Tipo esperadoTipo = new Tipo(TipoPrimitivo.LITERAL);
 
 		Tipo saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		String saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoTipo.toString(), saidaString);
 
 		// ********************************************************************************
-		// Teste com entrada nula
+		// Teste 3 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -812,7 +797,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		ALogicoTipo entradaTipoLogico = new ALogicoTipo();
 
 		// ********************************************************************************
-		// Teste com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -823,37 +808,26 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste com entrada válida
+		// Teste 2 - com entrada válida
 		// ********************************************************************************
 
 		analisadorDeDeclaracoes.outALogicoTipo(entradaTipoLogico);
 		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoLogico);
 		assertNotNull(saidaAtributosDoTipo);
 
-		String saidaIdentificador = (String) saidaAtributosDoTipo.obter(Atributo.ID);
-		assertNull(saidaIdentificador);
-
-		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDoTipo.obter(Atributo.SIMBOLO);
-		assertNull(saidaSimbolo);
-
-		Integer saidaLinha = (Integer) saidaAtributosDoTipo.obter(Atributo.LINHA);
-		assertNull(saidaLinha);
-
-		Integer saidaColuna = (Integer) saidaAtributosDoTipo.obter(Atributo.COLUNA);
-		assertNull(saidaColuna);
+		Atributo[] atributosEsperadosDoTipo = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDoTipo, atributosEsperadosDoTipo);
 
 		Tipo esperadoTipo = new Tipo(TipoPrimitivo.LOGICO);
 
 		Tipo saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		String saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoTipo.toString(), saidaString);
 
 		// ********************************************************************************
-		// Teste com entrada nula
+		// Teste 3 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -895,7 +869,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorSemantico.gravarAtributos(entradaCampoNum, entradaAtributosDoCampoNum);
 
 		// ********************************************************************************
-		// Teste 1 - com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -910,7 +884,8 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste 2 - com entrada válida
+		// Teste 2 - com entrada válida que contém apenas uma declaração (um tipo de
+		// dado) com um campo
 		// ********************************************************************************
 
 		analisadorSemantico.gravarAtributos(entradaCampoNum, entradaAtributosDoCampoNum);
@@ -918,23 +893,25 @@ public class AnalisadorDeDeclaracoesTeste {
 		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoRegistro);
 		assertNotNull(saidaAtributosDoTipo);
 
+		Atributo[] atributosEsperadosDoTipo = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDoTipo, atributosEsperadosDoTipo);
+
 		TipoRegistro esperadoTipo = new TipoRegistro();
 		esperadoTipo.getCampos().inserir(entradaCampoNumSimbolo, entradaAtributosDoCampoNum);
 
 		Tipo saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		// TODO Defeito - TabelaDeSimbolos.equals() não está implementado
 		// assertEquals(esperadoTipo, saidaTipo);
 
 		String saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		// TODO Defeito - TipoRegistro.toString() não está implementado
 		assertEquals("REGISTRO([...])", saidaString);
 
 		analisadorSemantico.getTabelasDeAtributos().remove(entradaTipoRegistro);
 
 		// ********************************************************************************
-		// Teste 3 - Entrada: registro (num, saldo numerico)
+		// Teste 3 - com entrada válida que contém uma declaração com dois campos
+		// Entrada: registro (num, saldo numerico)
 		// ********************************************************************************
 
 		String entradaCampoSaldoIdentificador = "saldo";
@@ -963,25 +940,26 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.outARegistroTipo(entradaTipoRegistro);
 		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoRegistro);
 		assertNotNull(saidaAtributosDoTipo);
+		verificarAtributos(saidaAtributosDoTipo, atributosEsperadosDoTipo);
 
 		esperadoTipo = new TipoRegistro();
 		esperadoTipo.getCampos().inserir(entradaCampoNumSimbolo, entradaAtributosDoCampoNum);
 		esperadoTipo.getCampos().inserir(entradaCampoSaldoSimbolo, entradaAtributosDoCampoSaldo);
 
 		saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		// TODO Defeito - TabelaDeSimbolos.equals() não está implementado
 		// assertEquals(esperadoTipo, saidaTipo);
 
 		saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		// TODO Defeito - TipoRegistro.toString() não está implementado
 		assertEquals("REGISTRO([...])", saidaString);
 
 		analisadorSemantico.getTabelasDeAtributos().remove(entradaTipoRegistro);
 
 		// ********************************************************************************
-		// Teste 4 - Entrada: registro (num, saldo numerico nome literal)
+		// Teste 4 - com entrada inválida que contém duas declarações com ao todo quatro
+		// campos, sendo que um desses campos foi declarado repetido
+		// Entrada: registro (num, saldo numerico nome, num literal)
 		// ********************************************************************************
 
 		String entradaCampoNomeIdentificador = "nome";
@@ -989,8 +967,14 @@ public class AnalisadorDeDeclaracoesTeste {
 		PVariavel entradaCampoNome = new ASimplesVariavel(
 				new TIdentificador(entradaCampoNomeIdentificador, entradaLinha, entradaCampoNomeColuna));
 
+		String entradaCampoRepetidoIdentificador = entradaCampoNumIdentificador;
+		int entradaCampoRepetidoColuna = 48;
+		PVariavel entradaCampoRepetido = new ASimplesVariavel(
+				new TIdentificador(entradaCampoRepetidoIdentificador, entradaLinha, entradaCampoRepetidoColuna));
+
 		auxiliarListaDeCampos.clear();
 		auxiliarListaDeCampos.add(entradaCampoNome);
+		auxiliarListaDeCampos.add(entradaCampoRepetido);
 
 		PDeclaracao entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeCampos, new ALiteralTipo());
 
@@ -1008,47 +992,6 @@ public class AnalisadorDeDeclaracoesTeste {
 		entradaAtributosDoCampoNome.inserir(Atributo.COLUNA, entradaCampoNumColuna);
 		entradaAtributosDoCampoNome.inserir(Atributo.STRING, entradaCampoNomeIdentificador.toUpperCase());
 		analisadorSemantico.gravarAtributos(entradaCampoNome, entradaAtributosDoCampoNome);
-
-		analisadorDeDeclaracoes.outARegistroTipo(entradaTipoRegistro);
-		saidaAtributosDoTipo = analisadorSemantico.obterAtributos(entradaTipoRegistro);
-		assertNotNull(saidaAtributosDoTipo);
-
-		esperadoTipo = new TipoRegistro();
-		esperadoTipo.getCampos().inserir(entradaCampoNumSimbolo, entradaAtributosDoCampoNum);
-		esperadoTipo.getCampos().inserir(entradaCampoSaldoSimbolo, entradaAtributosDoCampoSaldo);
-		esperadoTipo.getCampos().inserir(entradaCampoNomeSimbolo, entradaAtributosDoCampoNome);
-
-		saidaTipo = (Tipo) saidaAtributosDoTipo.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
-		// TODO Defeito - TabelaDeSimbolos.equals() não está implementado
-		// assertEquals(esperadoTipo, saidaTipo);
-
-		saidaString = (String) saidaAtributosDoTipo.obter(Atributo.STRING);
-		assertNotNull(saidaString);
-		// TODO Defeito - TipoRegistro.toString() não está implementado
-		assertEquals("REGISTRO([...])", saidaString);
-
-		analisadorSemantico.getTabelasDeAtributos().remove(entradaTipoRegistro);
-
-		// ********************************************************************************
-		// Teste 5 - com campo repetido (gera erro semântico)
-		// Entrada: registro (num, saldo numerico nome, num literal)
-		// ********************************************************************************
-
-		String entradaCampoRepetidoIdentificador = entradaCampoNumIdentificador;
-		int entradaCampoRepetidoColuna = 48;
-		PVariavel entradaCampoRepetido = new ASimplesVariavel(
-				new TIdentificador(entradaCampoRepetidoIdentificador, entradaLinha, entradaCampoRepetidoColuna));
-
-		auxiliarListaDeCampos.add(entradaCampoRepetido);
-
-		entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeCampos, new ALiteralTipo());
-
-		entradaListaDeDeclaracoes.clear();
-		entradaListaDeDeclaracoes.add(entradaDeclaracaoNumerico);
-		entradaListaDeDeclaracoes.add(entradaDeclaracaoLiteral);
-
-		entradaTipoRegistro = new ARegistroTipo(entradaListaDeDeclaracoes);
 
 		TabelaDeAtributos entradaAtributosDoCampoRepetido = new TabelaDeAtributos();
 		entradaAtributosDoCampoRepetido.inserir(Atributo.ID, entradaCampoRepetidoIdentificador.toUpperCase());
@@ -1070,7 +1013,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorSemantico.getTabelasDeAtributos().remove(entradaTipoRegistro);
 
 		// ********************************************************************************
-		// Teste 6 - com entrada nula
+		// Teste 5 - com entrada nula
 		// ********************************************************************************
 
 		// try {
@@ -1103,7 +1046,7 @@ public class AnalisadorDeDeclaracoesTeste {
 				new ArrayList<PDeclaracao>(), new ArrayList<PComando>(), entradaIdentificadorFim);
 
 		// ********************************************************************************
-		// Teste 1 - com erro semântico detectado anteriormente
+		// Teste 1 - com erro semântico detectado antes da execução do método
 		// ********************************************************************************
 
 		inserirErroSemantico();
@@ -1118,49 +1061,107 @@ public class AnalisadorDeDeclaracoesTeste {
 		removerErroSemantico();
 
 		// ********************************************************************************
-		// Teste 2 - com entrada válida
+		// Teste 2 - com entrada inválida em que o identificador da sub-rotina já foi
+		// declarado anteriormente
 		// ********************************************************************************
+
+		String entradaVariavelIdentificadorComoString = entradaSubRotinaIdentificadorComoString;
+		Simbolo entradaVariavelSimbolo = Simbolo.obter(entradaVariavelIdentificadorComoString.toUpperCase());
+		int entradaVariavelLinha = 5, entradaVariavelColuna = 9;
+
+		TabelaDeAtributos entradaVariavelAtributos = new TabelaDeAtributos();
+		entradaVariavelAtributos.inserir(Atributo.ID, entradaVariavelIdentificadorComoString.toUpperCase());
+		entradaVariavelAtributos.inserir(Atributo.SIMBOLO, entradaVariavelSimbolo);
+		entradaVariavelAtributos.inserir(Atributo.LINHA, entradaVariavelLinha);
+		entradaVariavelAtributos.inserir(Atributo.COLUNA, entradaVariavelColuna);
+		entradaVariavelAtributos.inserir(Atributo.STRING, entradaVariavelIdentificadorComoString.toUpperCase());
+
+		analisadorSemantico.getTabelaDeSimbolos().inserir(entradaVariavelSimbolo, entradaVariavelAtributos);
+
+		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
+		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
+
+		// TODO Defeito - Não deveria gravar atributos, se há erro semântico
+		// assertNull(saidaAtributosDaSubRotina);
+		assertTrue(analisadorSemantico.haErroSemantico());
+		// TODO Refatoração - Não é possível testar linha e coluna do erro semântico
+
+		removerErroSemantico();
+
+		// ********************************************************************************
+		// Teste 3 - com entrada inválida em que o identificador ao final da sub-rotina
+		// não é igual ao identificador do início
+		// Entrada:
+		// sub-rotina verifica()
+		// fim_sub_rotina verificar
+		// ********************************************************************************
+
+		entradaSubRotinaIdentificadorFimComoString = "verificar";
+		entradaIdentificadorFim = new TIdentificador(entradaSubRotinaIdentificadorFimComoString,
+				entradaIdentificadorFimLinha, entradaIdentificadorFimColuna);
+
+		entradaSubRotina = new ASubRotina(entradaIdentificador, entradaParametros, new ArrayList<PDeclaracao>(),
+				new ArrayList<PComando>(), entradaIdentificadorFim);
+
+		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
+		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
+
+		// TODO Defeito - Não deveria gravar atributos, se há erro semântico
+		// assertNull(saidaAtributosDaSubRotina);
+		assertTrue(analisadorSemantico.haErroSemantico());
+		// TODO Refatoração - Não é possível testar linha e coluna do erro semântico
+		
+		removerErroSemantico();
+
+		// ********************************************************************************
+		// Teste 4 - com entrada válida que não contém declaração
+		// ********************************************************************************
+
+		entradaSubRotinaIdentificadorFimComoString = entradaSubRotinaIdentificadorComoString;
+		entradaIdentificadorFim = new TIdentificador(entradaSubRotinaIdentificadorFimComoString,
+				entradaIdentificadorFimLinha, entradaIdentificadorFimColuna);
+
+		entradaSubRotina = new ASubRotina(entradaIdentificador, entradaParametros, new ArrayList<PDeclaracao>(),
+				new ArrayList<PComando>(), entradaIdentificadorFim);
 
 		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
 		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
 		assertNotNull(saidaAtributosDaSubRotina);
 
+		Atributo[] atributosEsperadosDaSubRotina = new Atributo[] { Atributo.SIMBOLO, Atributo.ID, Atributo.LINHA,
+				Atributo.COLUNA, Atributo.TIPO, Atributo.STRING };
+		verificarAtributos(saidaAtributosDaSubRotina, atributosEsperadosDaSubRotina);
+
 		String esperadoIdentificador = entradaSubRotinaIdentificadorComoString.toUpperCase();
 
 		String saidaIdentificador = (String) saidaAtributosDaSubRotina.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
 		assertEquals(esperadoIdentificador, saidaIdentificador);
 
 		Simbolo esperadoSimbolo = Simbolo.obter(entradaSubRotinaIdentificadorComoString.toUpperCase());
 
 		Simbolo saidaSimbolo = (Simbolo) saidaAtributosDaSubRotina.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
 		assertEquals(esperadoSimbolo, saidaSimbolo);
 
 		Integer saidaLinha = (Integer) saidaAtributosDaSubRotina.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
 		assertEquals(entradaLinha, (int) saidaLinha);
 
 		Integer saidaColuna = (Integer) saidaAtributosDaSubRotina.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
 		assertEquals(entradaSubRotinaColuna, (int) saidaColuna);
 
 		TipoSubrotina esperadoTipo = new TipoSubrotina(entradaSubRotina, null);
 
 		Tipo saidaTipo = (Tipo) saidaAtributosDaSubRotina.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		String esperadoString = "VERIFICA()";
 
 		String saidaString = (String) saidaAtributosDaSubRotina.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoString, saidaString);
 
 		inicializar();
 
 		// ********************************************************************************
-		// Teste 3
+		// Teste 5 - com entrada válida que contém uma declaração com um parâmetro
 		// Entrada:
 		// sub-rotina verifica(x numerico)
 		// fim_sub_rotina verifica
@@ -1194,21 +1195,18 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
 		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
 		assertNotNull(saidaAtributosDaSubRotina);
+		verificarAtributos(saidaAtributosDaSubRotina, atributosEsperadosDaSubRotina);
 
 		saidaIdentificador = (String) saidaAtributosDaSubRotina.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
 		assertEquals(esperadoIdentificador, saidaIdentificador);
 
 		saidaSimbolo = (Simbolo) saidaAtributosDaSubRotina.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
 		assertEquals(esperadoSimbolo, saidaSimbolo);
 
 		saidaLinha = (Integer) saidaAtributosDaSubRotina.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
 		assertEquals(entradaLinha, (int) saidaLinha);
 
 		saidaColuna = (Integer) saidaAtributosDaSubRotina.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
 		assertEquals(entradaSubRotinaColuna, (int) saidaColuna);
 
 		esperadoTipo = new TipoSubrotina(entradaSubRotina, null);
@@ -1216,21 +1214,20 @@ public class AnalisadorDeDeclaracoesTeste {
 		esperadoTipo.getTabelaDeSimbolos().inserir(entradaParametroXSimbolo, entradaAtributosDoParametroX);
 
 		saidaTipo = (Tipo) saidaAtributosDaSubRotina.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		esperadoString = "VERIFICA(NUMERICO)";
 
 		saidaString = (String) saidaAtributosDaSubRotina.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoString, saidaString);
 
 		inicializar();
 
 		// ********************************************************************************
-		// Teste 4
+		// Teste 6 - com entrada válida que contém duas declarações com ao todo três
+		// parâmetros
 		// Entrada:
-		// sub-rotina verifica(x, y numerico)
+		// sub-rotina verifica(x, y numerico z literal)
 		// fim_sub_rotina verifica
 		// ********************************************************************************
 
@@ -1243,8 +1240,19 @@ public class AnalisadorDeDeclaracoesTeste {
 
 		entradaDeclaracaoNumerico = new ADeclaracao(auxiliarListaDeVariaveis, new ANumericoTipo());
 
+		String entradaParametroZIdentificador = "z";
+		int entradaParametroZColuna = 35;
+		PVariavel entradaParametroZ = new ASimplesVariavel(
+				new TIdentificador(entradaParametroZIdentificador, entradaLinha, entradaParametroZColuna));
+
+		auxiliarListaDeVariaveis.clear();
+		auxiliarListaDeVariaveis.add(entradaParametroZ);
+
+		PDeclaracao entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeVariaveis, new ALiteralTipo());
+
 		entradaParametros.clear();
 		entradaParametros.add(entradaDeclaracaoNumerico);
+		entradaParametros.add(entradaDeclaracaoLiteral);
 
 		entradaSubRotina = new ASubRotina(entradaIdentificador, entradaParametros, new ArrayList<PDeclaracao>(),
 				new ArrayList<PComando>(), entradaIdentificadorFim);
@@ -1261,69 +1269,6 @@ public class AnalisadorDeDeclaracoesTeste {
 		entradaAtributosDoParametroY.inserir(Atributo.TIPO, new Tipo(TipoPrimitivo.NUMERICO));
 		analisadorSemantico.gravarAtributos(entradaParametroY, entradaAtributosDoParametroY);
 
-		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
-		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
-		assertNotNull(saidaAtributosDaSubRotina);
-
-		saidaIdentificador = (String) saidaAtributosDaSubRotina.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
-		assertEquals(esperadoIdentificador, saidaIdentificador);
-
-		saidaSimbolo = (Simbolo) saidaAtributosDaSubRotina.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
-		assertEquals(esperadoSimbolo, saidaSimbolo);
-
-		saidaLinha = (Integer) saidaAtributosDaSubRotina.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
-		assertEquals(entradaLinha, (int) saidaLinha);
-
-		saidaColuna = (Integer) saidaAtributosDaSubRotina.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
-		assertEquals(entradaSubRotinaColuna, (int) saidaColuna);
-
-		esperadoTipo = new TipoSubrotina(entradaSubRotina, null);
-		esperadoTipo.getParametros().add(entradaParametroXSimbolo);
-		esperadoTipo.getTabelaDeSimbolos().inserir(entradaParametroXSimbolo, entradaAtributosDoParametroX);
-		esperadoTipo.getParametros().add(entradaParametroYSimbolo);
-		esperadoTipo.getTabelaDeSimbolos().inserir(entradaParametroYSimbolo, entradaAtributosDoParametroY);
-
-		saidaTipo = (Tipo) saidaAtributosDaSubRotina.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
-		assertEquals(esperadoTipo, saidaTipo);
-
-		esperadoString = "VERIFICA(NUMERICO, NUMERICO)";
-
-		saidaString = (String) saidaAtributosDaSubRotina.obter(Atributo.STRING);
-		assertNotNull(saidaString);
-		assertEquals(esperadoString, saidaString);
-
-		inicializar();
-
-		// ********************************************************************************
-		// Teste 5
-		// Entrada:
-		// sub-rotina verifica(x, y numerico z literal)
-		// fim_sub_rotina verifica
-		// ********************************************************************************
-
-		String entradaParametroZIdentificador = "z";
-		int entradaParametroZColuna = 35;
-		PVariavel entradaParametroZ = new ASimplesVariavel(
-				new TIdentificador(entradaParametroZIdentificador, entradaLinha, entradaParametroZColuna));
-
-		auxiliarListaDeVariaveis.clear();
-		auxiliarListaDeVariaveis.add(entradaParametroZ);
-
-		PDeclaracao entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeVariaveis, new ALiteralTipo());
-
-		entradaParametros.add(entradaDeclaracaoLiteral);
-
-		entradaSubRotina = new ASubRotina(entradaIdentificador, entradaParametros, new ArrayList<PDeclaracao>(),
-				new ArrayList<PComando>(), entradaIdentificadorFim);
-
-		analisadorSemantico.gravarAtributos(entradaParametroX, entradaAtributosDoParametroX);
-		analisadorSemantico.gravarAtributos(entradaParametroY, entradaAtributosDoParametroY);
-
 		TabelaDeAtributos entradaAtributosDoParametroZ = new TabelaDeAtributos();
 		entradaAtributosDoParametroZ.inserir(Atributo.ID, entradaParametroZIdentificador.toUpperCase());
 		Simbolo entradaParametroZSimbolo = Simbolo.obter(entradaParametroZIdentificador.toUpperCase());
@@ -1337,21 +1282,18 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
 		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
 		assertNotNull(saidaAtributosDaSubRotina);
+		verificarAtributos(saidaAtributosDaSubRotina, atributosEsperadosDaSubRotina);
 
 		saidaIdentificador = (String) saidaAtributosDaSubRotina.obter(Atributo.ID);
-		assertNotNull(saidaIdentificador);
 		assertEquals(esperadoIdentificador, saidaIdentificador);
 
 		saidaSimbolo = (Simbolo) saidaAtributosDaSubRotina.obter(Atributo.SIMBOLO);
-		assertNotNull(saidaSimbolo);
 		assertEquals(esperadoSimbolo, saidaSimbolo);
 
 		saidaLinha = (Integer) saidaAtributosDaSubRotina.obter(Atributo.LINHA);
-		assertNotNull(saidaLinha);
 		assertEquals(entradaLinha, (int) saidaLinha);
 
 		saidaColuna = (Integer) saidaAtributosDaSubRotina.obter(Atributo.COLUNA);
-		assertNotNull(saidaColuna);
 		assertEquals(entradaSubRotinaColuna, (int) saidaColuna);
 
 		esperadoTipo = new TipoSubrotina(entradaSubRotina, null);
@@ -1363,13 +1305,11 @@ public class AnalisadorDeDeclaracoesTeste {
 		esperadoTipo.getTabelaDeSimbolos().inserir(entradaParametroZSimbolo, entradaAtributosDoParametroZ);
 
 		saidaTipo = (Tipo) saidaAtributosDaSubRotina.obter(Atributo.TIPO);
-		assertNotNull(saidaTipo);
 		assertEquals(esperadoTipo, saidaTipo);
 
 		esperadoString = "VERIFICA(NUMERICO, NUMERICO, LITERAL)";
 
 		saidaString = (String) saidaAtributosDaSubRotina.obter(Atributo.STRING);
-		assertNotNull(saidaString);
 		assertEquals(esperadoString, saidaString);
 
 		inicializar();
@@ -1379,46 +1319,6 @@ public class AnalisadorDeDeclaracoesTeste {
 		// fim_sub_rotina verifica
 		// O parâmetro repetido é um erro semântico já detectado no método
 		// outADeclaracao()
-
-		// ********************************************************************************
-		// Teste 6 - identificador repetido após o fim da sub-rotina não corresponde ao
-		// identificador da declaração (gera erro semântico)
-		// Entrada:
-		// sub-rotina verifica(x, y numerico z, y literal)
-		// fim_sub_rotina verificar
-		// ********************************************************************************
-
-		entradaSubRotinaIdentificadorFimComoString = "verificar";
-		entradaIdentificadorFim = new TIdentificador(entradaSubRotinaIdentificadorFimComoString,
-				entradaIdentificadorFimLinha, entradaIdentificadorFimColuna);
-
-		auxiliarListaDeVariaveis.clear();
-		auxiliarListaDeVariaveis.add(entradaParametroX);
-		auxiliarListaDeVariaveis.add(entradaParametroY);
-		entradaDeclaracaoNumerico = new ADeclaracao(auxiliarListaDeVariaveis, new ANumericoTipo());
-
-		auxiliarListaDeVariaveis.clear();
-		auxiliarListaDeVariaveis.add(entradaParametroZ);
-		entradaDeclaracaoLiteral = new ADeclaracao(auxiliarListaDeVariaveis, new ALiteralTipo());
-
-		entradaParametros.clear();
-		entradaParametros.add(entradaDeclaracaoNumerico);
-		entradaParametros.add(entradaDeclaracaoLiteral);
-
-		entradaSubRotina = new ASubRotina(entradaIdentificador, entradaParametros, new ArrayList<PDeclaracao>(),
-				new ArrayList<PComando>(), entradaIdentificadorFim);
-
-		analisadorSemantico.gravarAtributos(entradaParametroX, entradaAtributosDoParametroX);
-		analisadorSemantico.gravarAtributos(entradaParametroY, entradaAtributosDoParametroY);
-		analisadorSemantico.gravarAtributos(entradaParametroZ, entradaAtributosDoParametroZ);
-
-		analisadorDeDeclaracoes.caseASubRotina(entradaSubRotina);
-		saidaAtributosDaSubRotina = analisadorSemantico.obterAtributos(entradaSubRotina);
-
-		// TODO Defeito - Não deveria gravar atributos, se há erro semântico
-		// assertNull(saidaAtributosDaSubRotina);
-		assertTrue(analisadorSemantico.haErroSemantico());
-		// TODO Refatoração - Não é possível testar linha e coluna do erro semântico
 
 		// ********************************************************************************
 		// Teste 7 - com entrada nula
