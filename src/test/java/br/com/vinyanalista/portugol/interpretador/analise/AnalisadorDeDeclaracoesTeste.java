@@ -627,7 +627,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outADeclaracaoTeste10() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outADeclaracao(null);
 	}
 
@@ -704,7 +703,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outASimplesVariavelTeste3() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outASimplesVariavel(null);
 	}
 
@@ -784,7 +782,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outAVetorOuMatrizVariavelTeste3() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outAVetorOuMatrizVariavel(null);
 	}
 
@@ -845,7 +842,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outANumericoTipoTeste3() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outANumericoTipo(null);
 	}
 
@@ -906,7 +902,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outALiteralTipoTeste3() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outALiteralTipo(null);
 	}
 
@@ -967,7 +962,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outALogicoTipoTeste3() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outALogicoTipo(null);
 	}
 
@@ -1247,7 +1241,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void outARegistroTipoTeste5() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.outARegistroTipo(null);
 	}
 
@@ -1670,7 +1663,6 @@ public class AnalisadorDeDeclaracoesTeste {
 
 	@Test(expected = AssertionError.class)
 	public void caseASubRotinaTeste7() {
-		// TODO Defeito - Tratar entrada nula
 		analisadorDeDeclaracoes.caseASubRotina(null);
 	}
 }
