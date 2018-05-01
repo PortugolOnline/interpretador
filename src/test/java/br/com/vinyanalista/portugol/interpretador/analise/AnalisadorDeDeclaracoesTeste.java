@@ -627,17 +627,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 10 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outADeclaracaoTeste10() {
-		try {
-			analisadorDeDeclaracoes.outADeclaracao(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outADeclaracao(null);
 	}
 
 	// ================================================================================
@@ -711,17 +704,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 3 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outASimplesVariavelTeste3() {
-		try {
-			analisadorDeDeclaracoes.outASimplesVariavel(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outASimplesVariavel(null);
 	}
 
 	// ================================================================================
@@ -798,17 +784,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 3 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outAVetorOuMatrizVariavelTeste3() {
-		try {
-			analisadorDeDeclaracoes.outAVetorOuMatrizVariavel(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outAVetorOuMatrizVariavel(null);
 	}
 
 	// ================================================================================
@@ -866,17 +845,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 3 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outANumericoTipoTeste3() {
-		try {
-			analisadorDeDeclaracoes.outANumericoTipo(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outANumericoTipo(null);
 	}
 
 	// ================================================================================
@@ -934,17 +906,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 3 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outALiteralTipoTeste3() {
-		try {
-			analisadorDeDeclaracoes.outALiteralTipo(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outALiteralTipo(null);
 	}
 
 	// ================================================================================
@@ -1002,17 +967,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 3 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outALogicoTipoTeste3() {
-		try {
-			analisadorDeDeclaracoes.outALogicoTipo(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outALogicoTipo(null);
 	}
 
 	// ================================================================================
@@ -1289,17 +1247,10 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 5 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void outARegistroTipoTeste5() {
-		try {
-			analisadorDeDeclaracoes.outARegistroTipo(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.outARegistroTipo(null);
 	}
 
 	// ================================================================================
@@ -1719,16 +1670,9 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 7 - com entrada nula
 	// --------------------------------------------------------------------------------
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void caseASubRotinaTeste7() {
-		try {
-			analisadorDeDeclaracoes.caseASubRotina(null);
-		} catch (AssertionError e) {
-			// Esperado
-			return;
-		} catch (Exception e) {
-		} finally {
-			fail("Entrada nula não tratada");
-		}
+		// TODO Defeito - Tratar entrada nula
+		analisadorDeDeclaracoes.caseASubRotina(null);
 	}
 }
