@@ -15,6 +15,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outADeclaracao(ADeclaracao declaracao) {
+    	assert (declaracao != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -94,6 +95,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outASimplesVariavel(ASimplesVariavel variavel) {
+    	assert (variavel != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -115,6 +117,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outAVetorOuMatrizVariavel(AVetorOuMatrizVariavel vetorOuMatriz) {
+    	assert (vetorOuMatriz != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -135,6 +138,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outANumericoTipo(ANumericoTipo tipoNumerico) {
+    	assert (tipoNumerico != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -151,6 +155,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outALiteralTipo(ALiteralTipo tipoLiteral) {
+    	assert (tipoLiteral != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -167,6 +172,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outALogicoTipo(ALogicoTipo tipoLogico) {
+    	assert (tipoLogico != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -183,6 +189,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void outARegistroTipo(ARegistroTipo tipoRegistro) {
+    	assert (tipoRegistro != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
@@ -218,6 +225,7 @@ public class AnalisadorDeDeclaracoes extends DepthFirstAdapter {
     
     @Override
     public void caseASubRotina(ASubRotina subrotina) {
+    	assert (subrotina != null);
     	// A análise semântica é suspensa quando um erro semântico é encontrado
         if (analisadorSemantico.haErroSemantico()) {
             return;
