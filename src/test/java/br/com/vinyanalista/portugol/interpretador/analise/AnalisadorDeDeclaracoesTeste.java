@@ -19,7 +19,7 @@ public class AnalisadorDeDeclaracoesTeste {
 		analisadorSemantico.lancarErroSemantico(null, 1, 1, "Um erro semântico para teste");
 	}
 
-	private void verificarAtributos(TabelaDeAtributos tabelaDeAtributos, Atributo[] atributosEsperados) {
+	static void verificarAtributos(TabelaDeAtributos tabelaDeAtributos, Atributo[] atributosEsperados) {
 		List<Atributo> atributosEsperadosComoLista = Arrays.asList(atributosEsperados);
 
 		for (Atributo atributo : Atributo.values()) {
@@ -94,7 +94,7 @@ public class AnalisadorDeDeclaracoesTeste {
 	// Teste 2 - com entrada válida com apenas 1 variável de um tipo primitivo
 	// --------------------------------------------------------------------------------
 
-	final Atributo[] atributosEsperadosDaDeclaracao = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+	static final Atributo[] atributosEsperadosDaDeclaracao = new Atributo[] { Atributo.TIPO, Atributo.STRING };
 
 	@Test
 	public void outADeclaracaoTeste2() {
@@ -1030,7 +1030,7 @@ public class AnalisadorDeDeclaracoesTeste {
 	// dado) com um campo
 	// --------------------------------------------------------------------------------
 
-	final Atributo[] atributosEsperadosDoTipoRegistro = new Atributo[] { Atributo.TIPO, Atributo.STRING };
+	static final Atributo[] atributosEsperadosDoTipoRegistro = new Atributo[] { Atributo.TIPO, Atributo.STRING };
 
 	@Test
 	public void outARegistroTipoTeste2() {
