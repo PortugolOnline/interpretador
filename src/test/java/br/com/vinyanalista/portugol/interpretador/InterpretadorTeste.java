@@ -2,27 +2,45 @@ package br.com.vinyanalista.portugol.interpretador;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
+import java.io.*;
 
 import org.junit.*;
 
-import br.com.vinyanalista.portugol.base.lexer.LexerException;
-import br.com.vinyanalista.portugol.base.parser.ParserException;
-import br.com.vinyanalista.portugol.interpretador.analise.ErroSemantico;
-
 public class InterpretadorTeste {
-	Interpretador interpretador;
+	private final InputStream entradaDoSistema = System.in;
+	private final PrintStream saidaDoSistema = System.out;
 
-	@Test
-	public void analisarExecucaoDoExemplo1() throws IOException, LexerException, ParserException, ErroSemantico {
-		String programaFonte = Exemplo.ESTRUTURA_SEQUENCIAL.getProgramaFonte();
-		String entrada = "1\n2\n";
-		TerminalDeTeste terminalDeTeste = new TerminalDeTeste(entrada);
-		Interpretador interpretador = new Interpretador(terminalDeTeste);
-		interpretador.analisar(programaFonte);
-		interpretador.executar();
-		System.out.println(terminalDeTeste.getSaida());
-		assertNotNull(terminalDeTeste.getSaida());
+	private ByteArrayInputStream entradaDoTeste;
+	private ByteArrayOutputStream saidaDoTeste;
+
+	@Before
+	public void capturarSaida() {
+		saidaDoTeste = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(saidaDoTeste));
 	}
 
+	private void fornecerEntrada(String data) {
+		entradaDoTeste = new ByteArrayInputStream(data.getBytes());
+		System.setIn(entradaDoTeste);
+	}
+
+	private String obterSaida() {
+		return saidaDoTeste.toString();
+	}
+
+	@After
+	public void restaurarEntradaSaidaDoSistema() {
+		System.setIn(entradaDoSistema);
+		System.setOut(saidaDoSistema);
+	}
+
+	@Test
+	public void out() {
+		final String teste = "oi!";
+		fornecerEntrada(teste);
+		
+		System.out.print(teste);
+		
+		assertEquals(teste, obterSaida());
+	}
 }
