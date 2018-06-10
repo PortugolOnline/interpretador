@@ -1,7 +1,5 @@
 package br.com.vinyanalista.portugol.interpretador;
 
-import java.awt.Color;
-
 import br.com.vinyanalista.portugol.interpretador.execucao.ErroEmTempoDeExecucao;
 
 public abstract class Terminal {
@@ -100,7 +98,5 @@ public abstract class Terminal {
 	}
 	
 	public abstract void limpar();
-	
-	protected abstract void mudarCor(Color cor);
 	
 }

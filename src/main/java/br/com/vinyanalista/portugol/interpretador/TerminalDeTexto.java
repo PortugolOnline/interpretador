@@ -63,8 +63,7 @@ public class TerminalDeTexto extends Terminal {
 		}
 		// TODO Implementar ConsoleTextual.limpar()
 	}
-	
-	@Override
+
 	protected void mudarCor(Color cor) {
 		// http://stackoverflow.com/questions/1448858/how-to-color-system-out-println-output
 		// https://github.com/fusesource/jansi/blob/master/jansi/src/main/java/org/fusesource/jansi/Ansi.java
